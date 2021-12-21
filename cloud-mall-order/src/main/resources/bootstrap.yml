@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848 #配置中心地址
+        file-extension: yaml #由于在nacos配置中心创建的配置是yaml格式的,所以在此指定
+        enabled: true #默认为true,通过设置 spring.cloud.nacos.config.enabled = false 来完全关闭 Spring Cloud Nacos Config
+  application:
+    name: order #此处的name跟nacos创建的provider.yml名称要是一致的
