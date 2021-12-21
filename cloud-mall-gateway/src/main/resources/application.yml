@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: order-api
+          uri: lb://order-api
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1  # 转发过滤前缀个数
+        - id: user-api
+          uri: lb://user-api
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1  # 转发过滤前缀个数
+        - id: product-api
+          uri: lb://product-api
+          # 断言，转发条件 Path、Query、Method、Header
+          predicates:
+            - Path=/product/**
+          # 过滤器是路由转发请求时所经过的过滤逻辑，可用于修改请求、响应内容。
+          filters:
+            - StripPrefix=1  # 转发过滤前缀个数，很关键，影响访问地址
+#  main:
+#    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org.springframework:cloud.gateway: debug

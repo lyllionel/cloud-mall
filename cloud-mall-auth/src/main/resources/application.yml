@@ -1,0 +1,19 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: mall-oauth2
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password:
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
